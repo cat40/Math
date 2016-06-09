@@ -10,6 +10,10 @@ def reg(xs, ys):
     for i, x in enumerate(xs):
         for i2, __ in enumerate(array[i]):
             array[i][i2] = x**(deg-i2)
+<<<<<<< HEAD
+=======
+        #array[i] = col
+>>>>>>> origin/master
     A = numpy.matrix(array)
     array = numpy.zeros((deg+1, 1))
     for i, y in enumerate(ys):
@@ -41,8 +45,19 @@ def comb(r):
                 s += str(p)
             #extra step to end with number instead of operator
             for newe in product([s], nums):
+<<<<<<< HEAD
                 yield sumstring(newe)
                  
+=======
+                #print(newe)
+                yield sumstring(newe)
+                
+        
+##def exp(xs, ys):
+##    if len(xs) < 5:
+##        raise IndexError('List of lenth %s is too short to define equation. List of lenth 5 required' % len(xs))
+    
+>>>>>>> origin/master
 xs = raw_input("What is the input number set, separated with commaspaces?\n").split(', ')
 ys = raw_input("What is the output number set, separated with commaspaces?\n").split(', ')
 xs = [int(x) for x in xs]
@@ -51,6 +66,10 @@ ys = [int(y) for y in ys]
 nums = ['x']+[a+b for a, b in product(list('0123456789'), repeat=2)]
 for i, n in enumerate(nums):
     nums[i] = n.lstrip('0')
+<<<<<<< HEAD
+=======
+#will need to inplement psecific parenthese handling to prefvent 1(5)
+>>>>>>> origin/master
 ops = ['+', '/', '-', '*', '**', '%', '+(', '-(', '*(', '/(', '%(' '**(', ')-', ')+', ')-', ')*', ')/', ')**', ')%']
 
 eq = reg(xs, ys)
