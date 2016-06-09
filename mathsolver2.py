@@ -1,7 +1,8 @@
 import numpy
 import math
+import sys
+import cat
 from itertools import product
-
 #takes a standard quadratic/cubic/quartic... regression
 def reg(xs, ys):
     deg = len(xs)-1
@@ -32,10 +33,10 @@ def sumstring(l):
     return s
 
 def comb(r):
-    if r == 1:
+    if r == 0:
         yield nums
     else:
-        for e in product(nums, ops, repeat=r-1):
+        for e in product(nums, ops, repeat=r):
             s = ''
             for p in e:
                 s += str(p)
@@ -55,45 +56,37 @@ xs = [int(x) for x in xs]
 ys = [int(y) for y in ys]
 
 nums = ['x']+[a+b for a, b in product(list('0123456789'), repeat=2)]
+for i, n in enumerate(nums):
+    nums[i] = n.lstrip('0')
 #will need to inplement psecific parenthese handling to prefvent 1(5)
-ops = ['+', '/', '-', '*', '**', '%']
+ops = ['+', '/', '-', '*', '**', '%', '+(', '-(', '*(', '/(', '%(' '**(', ')-', ')+', ')-', ')*', ')/', ')**', ')%']
 
 eq = reg(xs, ys)
 print eq
 if raw_input('does this match your equation? (y/n)').lower() != 'y':
+    limit = cat.input.getnum('input complexity limit')
     print'recomputing. this may take a while.'
-    done = False
-    reps = 1
-    #problem: reps += 1 even if all reps at that level have not been exausted
-    #need ot get a generator of all possible combonations at a given leve, then do that
-    #checking step i snot working for some reason
-    while not done:# and reps <= 50:
+    running = True
+    reps = 0
+    while running and reps <= limit:
         print reps
         for eq in comb(reps):
-            done = True
+            running = False
             for x, y in zip(xs, ys):
-                print eq
-                try: #z = eval(eq)
-                    if eval(eq) != y:
-                        done = False
+                try: z = eval(eq)
                 except:
-                    done = False
-                    print '     error'
+                    running = True
                     pass
-##                except:
-##                    done = False
-##                    print'    error'
-##                    pass
-##                else:
-##                    #print(z, y)
-##                    print'noerror'
-##                    if z == y:
-##                        #break
-##                        #done = True
-##                        None
-##                    else:
-##                        done = False
-                #del x
+                else:s
+                    if z != y:
+                        running = True
+                        break
+
+            if not running:
+                print('your equation is\n %s' % eq)
+                if raw_input('Does this make sense? (y/n)\n').lower != 'y':
+                        running = True
+                else:
+                    break
         reps += 1
-    print('equation is')
-    print('y='+eq)
+sys.exit()
