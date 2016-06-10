@@ -25,12 +25,6 @@ def reg(xs, ys):
             eq += '%s*x**%s+' % (float(c), deg-i)
     return eq.rstrip('+')
 
-def sumstring(l):
-    s = ''
-    for i in l:
-        s += i
-    return s
-
 def comb(r):
     if r == 0:
         yield nums
@@ -41,12 +35,12 @@ def comb(r):
                 s += str(p)
             #extra step to end with number instead of operator
             for newe in product([s], nums):
-                yield sumstring(newe)
+                yield ''.join(newe)
                  
 xs = raw_input("What is the input number set, separated with commaspaces?\n").split(', ')
 ys = raw_input("What is the output number set, separated with commaspaces?\n").split(', ')
-xs = [int(x) for x in xs]
-ys = [int(y) for y in ys]
+xs = [eval(x) for x in xs]
+ys = [eval(y) for y in ys]
 
 nums = ['x']+[a+b for a, b in product(list('0123456789'), repeat=2)]
 for i, n in enumerate(nums):
@@ -69,7 +63,7 @@ if raw_input('does this match your equation? (y/n)').lower() != 'y':
                 except:
                     running = True
                     pass
-                else:s
+                else:
                     if z != y:
                         running = True
                         break
@@ -79,6 +73,7 @@ if raw_input('does this match your equation? (y/n)').lower() != 'y':
                 if raw_input('Does this make sense? (y/n)\n').lower != 'y':
                         running = True
                 else:
+                    running = False
                     break
         reps += 1
 sys.exit()
